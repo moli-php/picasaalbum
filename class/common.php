@@ -4,8 +4,8 @@ class common
     /**
      * @return modelContents
      */
-    function modelContents()
+    function modelSettings()
     {
-        return getInstance('modelContents');
+        return getInstance('modelSettings');
     }
 }
