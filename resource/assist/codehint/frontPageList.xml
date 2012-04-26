@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<codehint>
+    <!-- This part is for variables -->
+    <var value="subject" name="The subject of the record"></var>
+    <var value="contents" name="The contents of the record"></var>
+    <var value="date_created" name="The date created of the record"></var>
+    
+    <!-- This part is for options -->
+    <option value="row_count" name="Use row_count to set the number of records per page." type="int" default="20"></option>
+</codehint>

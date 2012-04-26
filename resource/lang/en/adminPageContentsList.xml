@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lang>
+    <var name="msg_001">Please select the record(s) you'd like to delete.</var>
+    <var name="msg_002">Deleted successfully</var>
+    <var name="msg_003">Delete failed</var>
+    <var name="ttl_001">Delete</var>
+    <var name="ttl_002">No.</var>
+    <var name="ttl_003">Subject</var>
+    <var name="ttl_004">Created</var>
+    <var name="txt_001">Are you sure you want to delete?</var>
+    <var name="btn_001">Delete</var>
+</lang>

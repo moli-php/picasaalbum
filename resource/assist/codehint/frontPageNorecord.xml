@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<codehint>
+    <var value="subject" name="The subject of the record"></var>
+    <var value="contents" name="The contents of the record"></var>
+    <var value="date_created" name="The date created of the record"></var>
+</codehint>

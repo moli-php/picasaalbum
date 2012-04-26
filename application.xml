@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <application>
     <langs support="en" default="en"></langs>
-    <api use="off">
+    <api use="on">
         <ifs>
+            <if class="apiBuilderLib" permission="off" desc="Api for the builder library"></if>
+            <if class="apiContentsDelete" permission="off" desc="Api for a contents deletion"></if>
         </ifs>
     </api>
-    <admin use="on" index="adminIndex">
+    <admin use="on" index="adminPageContentsList">
         <ifs>
-            <if class="adminIndex" permission="off" desc="Sample Admin Interface"></if>
+          
+            <if class="adminPageSettings" permission="off" desc="Settings page"></if>
+       
         </ifs>
         <menus>
         </menus>
     </admin>
     <front use="on">
         <ifs>
-            <if class="frontSample" permission="off" code-assist="off" desc="Sample Front Interface">
-            </if>
+            <if class="frontPageDetail" permission="off" code-assist="on" desc="Detail block"></if>
+            <if class="frontPageHello" permission="off" code-assist="on" desc="Hello block"></if>
+            <if class="frontPageList" permission="off" code-assist="on" desc="List block"></if>
+            <if class="frontPageNorecord" permission="off" code-assist="on" desc="No record block"></if>
         </ifs>
     </front>
 </application>

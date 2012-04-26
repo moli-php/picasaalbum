@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lang>
+    <var name="simplesample">Simple Sample</var>
+    <var name="menu_contents">Contents</var>
+    <var name="menu_category">Categories</var>
+    <mostbutton>
+        <var param="SimplesamplePageContentsList">Add New Contents</var>
+        <var param="SimplesamplePageContentsAdd">Add New Contents</var>
+    </mostbutton>
+</lang>
