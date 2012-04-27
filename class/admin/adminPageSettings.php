@@ -11,7 +11,9 @@ class adminPageSettings extends Controller_Admin
 		$aSettings = $oModel->getSettings($aArgs[seq]);
 		$this->assign('seq',$aArgs[seq]);
 		$this->assign('aSettings',$aSettings[0]);
+		$this->importCSS(__CLASS__);
 		$this->importJS(__CLASS__);
+		
 		$this->view(__CLASS__);
 	}
 

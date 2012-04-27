@@ -3,7 +3,7 @@ class installSequenceDelete
 {
     function run($aArgs)
     {
-        $bResult = common()->modelContents()->deleteContentsBySeq($aArgs['seq']);
+        $bResult = common()->modelSettings()->deleteContentsBySeq($aArgs['seq']);
         if ($bResult !== false) {
             return true;
         } else {

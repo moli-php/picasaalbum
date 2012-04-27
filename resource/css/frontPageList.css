@@ -1,0 +1,12 @@
+body {margin:0;padding:0;color: #919191;font-family: "Lucida Grande",verdana,arial,helvetica,sans-serif;font-size: 12px;}
+.head_title {margin:0;padding:0 0 0 10px;color: #414141;font-size: 18px;font-weight: bold;}
+.selectedalbum {width:290px;height:350px;padding:0 0 0 10px;overflow:auto;}
+.allalbums {width:240px;height:350px;padding:0 0 0 10px;overflow:auto;}
+.allalbums .title span, .allalbums .number span  {color: #414141;font-size:11px !important;text-transform:uppercase}
+.selectedalbum .title span, .selectedalbum .number span  {color: #414141;font-size:11px !important;text-transform:uppercase}
+
+.selectedalbum .title, .allalbums .title {margin:5px 0 5px 0;font-size:11px;font-family:Tahoma;font-weight:bold;}
+.selectedalbum .title a, .allalbums .title a {text-decoration:none;color: #558DE2;}
+.selectedalbum .title a:hover, .allalbums .title a:hover {text-decoration:underline}
+.selectedalbum .image img {width:250px}
+.count {color:#ed1a1a !important}

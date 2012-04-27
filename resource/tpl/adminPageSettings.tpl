@@ -1,9 +1,5 @@
-<?php var_dump($aSettings);?>
-<hr>
 <?php 
 $username = explode("|",$aSettings[username]);
-
-
 ?>
 <form class="picasaAlbumSettings" id="picasaAlbumSettings" name="picasaAlbumSettings" method="post">
 <table class="">
@@ -13,7 +9,7 @@ $username = explode("|",$aSettings[username]);
 	</colgroup>
 	<tr>
 		<td>Picasa Username</td>
-		<td colspan="2"><input type="text" name="picasa_username" id="picasa_username" value="<?php echo $username[0];?>" size="50" fw-filter="isFill"/>&nbsp;&nbsp;<a href="#">Don't have account?</a></td>
+		<td colspan="2"><input type="text" name="picasa_username" id="picasa_username" value="<?php echo $username[0];?>" size="50" fw-filter="isFill"/>&nbsp;&nbsp;<a href="https://accounts.google.com/ServiceLogin?hl=en_US&continue=https%3A%2F%2Fpicasaweb.google.com%2Flh%2Flogin%3Fcontinue%3Dhttps%253A%252F%252Fpicasaweb.google.com%252Fhome&service=lh2&ltmpl=gp&passive=true" target="_blank">Don't have account?</a></td>
 	</tr>
 	<tr>
 		<td>View Type</td>
@@ -24,24 +20,23 @@ $username = explode("|",$aSettings[username]);
 		<td>Manage Album</td>
 		<td colspan="2">
 		<label for="picasa_showtype">Show all albums </label><input type="radio" name="picasa_showtype" value="0" <?php if($aSettings['album_type'] == 0 || $aSettings['album_type'] == ""){echo "checked";} ?> />
-		<label for="picasa_showtype">Show per album </label><input type="radio" name="picasa_showtype" value="1"/ <?php if($aSettings['album_type'] == 1){echo "checked";} ?> />&nbsp;&nbsp;
+		<label for="picasa_showtype">Show images/vidoes on selected album </label><input type="radio" name="picasa_showtype" value="1"/ <?php if($aSettings['album_type'] == 1){echo "checked";} ?> />&nbsp;&nbsp;
 		<span id="albumSelect_holder">
-		<?php 
-		if($aSettings['album_type'] == 1)
-		{
-			$options = "<select id='albumSelect'>";
-			$albums = json_decode($aSettings['albums']);
-			$album_ids = explode(",",$albums->album_ids);
-			$album_text = explode(",",$albums->album_text);
-			foreach($album_ids as $key => $val){
-				$selected = $album_ids[$key] == $aSettings['album_selected'] ? "selected" : "";
-				$options .= "<option value='".$album_ids[$key]."' ".$selected.">".$album_text[$key]."</option>";
+			<?php 
+			if($aSettings['album_type'] == 1)
+			{
+				$options = "<select id='albumSelect'>";
+				$albums = json_decode($aSettings['albums']);
+				$album_ids = explode(",",$albums->album_ids);
+				$album_text = explode(",",$albums->album_text);
+				foreach($album_ids as $key => $val){
+					$selected = $album_ids[$key] == $aSettings['album_selected'] ? "selected" : "";
+					$options .= "<option value='".$album_ids[$key]."' ".$selected.">".$album_text[$key]."</option>";
+				}
+				$options .= "</select>";
+				echo $options;
 			}
-			$options .= "</select>";
-			echo $options;
-		}
-		?>
-		
+			?>
 		</span>
 		</td>
 	</tr>

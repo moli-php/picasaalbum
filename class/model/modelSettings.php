@@ -31,5 +31,13 @@ class modelSettings extends Model
 		
 	}
 	
+	public function deleteContentsBySeq($aSeq)
+	{
+		$sSeqs = implode(',', $aSeq);
+		$sQuery = "DELETE FROM picasaalbum_settings WHERE seq IN($sSeqs)";
+		$mResult = $this->query($sQuery);
+		return $mResult;
+	}
+	
 
 }

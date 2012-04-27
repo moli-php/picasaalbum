@@ -22,7 +22,7 @@ $(document).ready(function() {
 		if($(this).val() == 1){
 			$('#albumSelect_holder').html(img);
 				$.ajax({
-					url: usbuilder.getUrl('apiPicasaAlbum'),
+					url: usbuilder.getUrl('apiGetUserAlbum'),
 					dataType: 'json',
 					type: 'POST',
 					data : {'username':$.trim(username.val())},
@@ -56,13 +56,19 @@ $(document).ready(function() {
 		}
 	});
 	
+	$('#ButtonReset').click(function(){
+		$('body').find('input[type="text"]').val("");
+		$('body').find('[name="picasa_showtype"]:first,[name="picasa_view"]:first,[name="picasa_slideSize"]:first').attr('checked',true);
+		$('table tr:last,#albumSelect_holder').hide();
+	});
+	
 	
 	$('#ButtonSave').click(function(){
 	
 		var username = $('#picasa_username').val();
 		var view_type = $('input[name=picasa_view]:checked').val();
 		var manage_album = $('input[name=picasa_showtype]:checked').val();
-		var album_selected = ($('#albumSelect').val() != undefined)?$('#albumSelect').val() : false;
+		var album_selected = ($('#albumSelect').val() != undefined)?$('#albumSelect').val() : "";
 		var slideshow_size = parseInt($('input[name=picasa_slideSize]:checked').val());
 		var width = parseInt($.trim($('#picasa_width').val()));
 		var height = parseInt($.trim($('#picasa_height').val())); 
@@ -90,7 +96,6 @@ $(document).ready(function() {
 		album_text = album_text.toString();
 		album_text = album_text == "" ? false : album_text;
 		albums = '{"album_text" : "'+album_text+'", "album_ids" : "'+album_ids+'"}';
-
 	
 		switch(slideshow_size)
 		{
@@ -113,20 +118,26 @@ $(document).ready(function() {
 			default:
 			size = '288|192';
 		}
-		size = (view_type == 0)? "" : size;
-	
+		if(view_type == 0){
+			size = "";
+			slideshow_size = 0;
+			$('input[name=picasa_slideSize]:first').attr('checked',true);
+		}
+		
 		$.ajax({
 			type: "POST",
 			dataType: "json",
 			url: usbuilder.getUrl('apiSettingsSave'),
-			data: {	username:username,
+			data: {	
+					username:username,
 					view_type:view_type,
 					manage_album:manage_album,
 					album_selected:album_selected,
 					picasa_size:size,
-					'size_option':slideshow_size,
+					size_option:slideshow_size,
 					iSeq:iSeq,
-					albums:albums},
+					albums:albums
+				},
 			success: function(data){
 				console.log(data);
 				if(data !== null){

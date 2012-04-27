@@ -1,5 +1,5 @@
 <?php
-class apiPicasaAlbum extends Controller_Api
+class apiGetUserAlbum extends Controller_Api
 {
 	
 	protected function post($aArgs)

@@ -13,12 +13,11 @@ class picasaxml
 	private function rss_picasa($username,$album="")
 	{
 		if(isset($album) && $album != ""){
-	
 			$url = "http://picasaweb.google.com/data/feed/base/user/".$username."/albumid/".$album."?hl=en_US";
 		}else{
 			$url = "http://picasaweb.google.com/data/feed/base/user/".$username;
 		}
-	
+	//return $url;
 		$curl = $this->download_page($url) or exit('error');
 	
 		$rss = new SimpleXMLElement($curl);
@@ -65,29 +64,41 @@ class picasaxml
 	
 	public function manage_album($user,$album="")
 	{
-	$user = $this->input->post('username');
-	$album = $this->input->post('album');
-	$rss = $this->rss_picasa($user,$album);
 	
-	foreach($rss->entry as $val){
+	  $rss = $this->rss_picasa($user,$album);
 	
-		$img = (string)$val->summary;
-		$title = (string)$val->title;
-		preg_match_all('/#333333/',$img, $pos1, PREG_OFFSET_CAPTURE,320);
-		preg_match_all('/<\/font>/',$img, $pos2, PREG_OFFSET_CAPTURE,$pos1[0][0][1]);
-		preg_match_all('/<\/font>/',$img, $pos3, PREG_OFFSET_CAPTURE,$pos1[0][1][1]);
-		$minus = ($pos2[0][0][1] - $pos1[0][0][1]) -9;
-		$minus2 = ($pos3[0][0][1] - $pos1[0][1][1]);
-		$image = substr($img, strpos($img,"<a"),strpos($img,"</a>")-34 );
-		$date = substr($img, $pos1[0][0][1]+9,$minus);
-		$count = substr($img, $pos1[0][1][1]+9,$minus2-9);
+		foreach($rss->entry as $val){
+		
+			$img = (string)$val->summary;
+			$title = (string)$val->title;
+			$link = $val->link[1]->attributes();
+
+			preg_match_all('/Number of Photos in Album:/',$img, $pos, PREG_OFFSET_CAPTURE);
+			preg_match_all('/<br/',$img, $pos2, PREG_OFFSET_CAPTURE,$pos[0][0][1]);
+
+			$image = substr($img, strpos($img,"<a"),strpos($img,"</a>")-34 );
+			$len = $pos2[0][0][1]-$pos[0][0][1]+56;
+			$count = substr($img, $pos[0][0][1]+56,$len-119);
+			
+		
+			$aData[] = array('title'=>$title,'image'=> $image,'photos_count'=>$count,'link'=>$link->href);
 	
-		$aData[] = array('title'=>$title,'image'=> $image,'date'=>$date,'photos_count'=>$count);
-	
+		
+		}
+	return $aData;
 	
 	}
 	
-	echo json_encode($aData);
+	public function slideshow($user,$size,$album="")
+	{
+		if($album == ""){
+			$embed = '<embed type="application/x-shockwave-flash" src="https://picasaweb.google.com/s/c/bin/slideshow.swf" width="'.$size[0].'" height="'.$size[1].'" flashvars="host=picasaweb.google.com&hl=en_US&feat=flashalbum&RGB=0x000000&feed=https%3A%2F%2Fpicasaweb.google.com%2Fdata%2Ffeed%2Fapi%2Fuser%2F'.$user.'%3Falt%3Drss%26kind%3Dphoto%26access%3Dpublic%26psc%3DF%26q%26uname%3D'.$user.'" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed>';
+		}else{
+			$embed = '<embed type="application/x-shockwave-flash" src="https://picasaweb.google.com/s/c/bin/slideshow.swf" width="'.$size[0].'" height="'.$size[1].'" flashvars="host=picasaweb.google.com&hl=en_US&feat=flashalbum&RGB=0x000000&feed=https%3A%2F%2Fpicasaweb.google.com%2Fdata%2Ffeed%2Fapi%2Fuser%2F'.$user.'%2Falbumid%2F'.$album.'%3Falt%3Drss%26kind%3Dphoto%26hl%3Den_US" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed>';
+		}
+		
+		return $embed;
+		
 	}
 	
 	
